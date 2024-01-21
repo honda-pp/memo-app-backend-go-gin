@@ -67,13 +67,13 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 		{
 			"GetUserById",
 			http.MethodGet,
-			"/v1/user/:id",
+			"/user/:id",
 			handleFunctions.UsersMemoAppApi.GetUserById,
 		},
 		{
 			"GetUsers",
 			http.MethodGet,
-			"/v1/users",
+			"/users",
 			handleFunctions.UsersMemoAppApi.GetUsers,
 		},
 	}

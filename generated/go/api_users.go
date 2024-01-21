@@ -16,14 +16,14 @@ import (
 type UsersMemoAppApi struct {
 }
 
-// Get /v1/user/:id
+// Get /user/:id
 // Find user by ID 
 func (api *UsersMemoAppApi) GetUserById(c *gin.Context) {
 	// Your handler implementation
 	c.JSON(200, gin.H{"status": "OK"})
 }
 
-// Get /v1/users
+// Get /users
 // Returns a list of users. 
 func (api *UsersMemoAppApi) GetUsers(c *gin.Context) {
 	// Your handler implementation
