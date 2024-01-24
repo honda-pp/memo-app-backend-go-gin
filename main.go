@@ -1,17 +1,22 @@
 package main
 
 import (
-	"log"
+	"github.com/honda-pp/memo-app-backend-go-gin/app/handlers"
+	"github.com/honda-pp/memo-app-backend-go-gin/infrastructure/logger"
 
-	sw "github.com/honda-pp/memo-app-backend-go-gin/generated/go"
+	generated "github.com/honda-pp/memo-app-backend-go-gin/generated/go"
 )
 
 func main() {
-	routes := sw.ApiHandleFunctions{}
+	log := logger.InitLogger()
+
+	api := handlers.UsersHandler{}
+
+	routes := generated.NewApiHandleFunctions(&api)
 
 	log.Printf("Server started")
 
-	router := sw.NewRouter(routes)
+	router := generated.NewRouter(routes)
 
-	log.Fatal(router.Run(":8080"))
+	log.Fatal(router.Run(":8000"))
 }
