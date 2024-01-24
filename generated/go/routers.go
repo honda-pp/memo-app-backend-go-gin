@@ -56,10 +56,16 @@ func DefaultHandleFunc(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "501 not implemented")
 }
 
+func NewApiHandleFunctions(UsersMemoAppApiInterface UsersMemoAppApiInterface) ApiHandleFunctions {
+	return ApiHandleFunctions{
+		UsersMemoAppApi: UsersMemoAppApiInterface,
+	}
+}
+
 type ApiHandleFunctions struct {
 
 	// Routes for the UsersMemoAppApi part of the API
-	UsersMemoAppApi UsersMemoAppApi
+	UsersMemoAppApi UsersMemoAppApiInterface
 }
 
 func getRoutes(handleFunctions ApiHandleFunctions) []Route {

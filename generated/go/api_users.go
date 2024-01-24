@@ -13,6 +13,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type UsersMemoAppApiInterface interface {
+	GetUserById(c *gin.Context)
+	GetUsers(c *gin.Context)
+}
+
+func NewUsersMemoAppApi() UsersMemoAppApiInterface {
+	return &UsersMemoAppApi{}
+}
+
 type UsersMemoAppApi struct {
 }
 
