@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+Dockerfile
+api/openapi.yaml
+generated/README.md
+generated/api_users.go
+generated/memo_app_model_error.go
+generated/memo_app_model_user.go
+generated/routers.go
+go.mod
+main.go
