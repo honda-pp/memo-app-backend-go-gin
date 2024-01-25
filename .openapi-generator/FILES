@@ -1,4 +1,6 @@
+generated/api_memo.go
 generated/api_users.go
-generated/memo_app_model_error.go
-generated/memo_app_model_user.go
+generated/model_error.go
+generated/model_memo.go
+generated/model_user.go
 generated/routers.go

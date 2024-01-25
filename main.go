@@ -4,15 +4,17 @@ import (
 	"github.com/honda-pp/memo-app-backend-go-gin/app/handlers"
 	"github.com/honda-pp/memo-app-backend-go-gin/infrastructure/logger"
 
-	generated "github.com/honda-pp/memo-app-backend-go-gin/generated"
+	"github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
 func main() {
 	log := logger.InitLogger()
 
-	api := handlers.UsersHandler{}
+	memoApi := handlers.NewMemoHandler()
 
-	routes := generated.NewApiHandleFunctions(&api)
+	userApi := handlers.NewUsersHandler()
+
+	routes := generated.NewApiHandleFunctions(memoApi, userApi)
 
 	log.Printf("Server started")
 
