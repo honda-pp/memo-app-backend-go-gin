@@ -4,7 +4,7 @@ import (
 	"github.com/honda-pp/memo-app-backend-go-gin/app/handlers"
 	"github.com/honda-pp/memo-app-backend-go-gin/infrastructure/logger"
 
-	generated "github.com/honda-pp/memo-app-backend-go-gin/generated/go"
+	generated "github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
 func main() {
