@@ -1,4 +1,3 @@
-generated/README.md
 generated/api_memo.go
 generated/api_users.go
 generated/model_error.go
