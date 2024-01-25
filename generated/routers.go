@@ -75,6 +75,12 @@ type ApiHandleFunctions struct {
 func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 	return []Route{ 
 		{
+			"CreateMemo",
+			http.MethodPost,
+			"/memo",
+			handleFunctions.MemoHandler.CreateMemo,
+		},
+		{
 			"DeleteMemoById",
 			http.MethodDelete,
 			"/memo/:id",
@@ -93,6 +99,12 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 			handleFunctions.MemoHandler.GetMemoList,
 		},
 		{
+			"UpdateMemo",
+			http.MethodPut,
+			"/memo/:id",
+			handleFunctions.MemoHandler.UpdateMemo,
+		},
+		{
 			"DeleteUserById",
 			http.MethodDelete,
 			"/user/:id",
@@ -107,7 +119,7 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 		{
 			"GetUsers",
 			http.MethodGet,
-			"/users",
+			"/user-list",
 			handleFunctions.UsersHandler.GetUsers,
 		},
 	}
