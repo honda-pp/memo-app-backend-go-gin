@@ -40,7 +40,7 @@ func (api *UsersHandler) GetUserById(c *gin.Context) {
 	c.JSON(200, gin.H{"status": "OK"})
 }
 
-// Get /users
+// Get /user-list
 // Returns a list of users. 
 func (api *UsersHandler) GetUsers(c *gin.Context) {
 	// Your handler implementation

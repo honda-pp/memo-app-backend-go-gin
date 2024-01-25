@@ -14,9 +14,11 @@ import (
 )
 
 type MemoHandlerInterface interface {
+	CreateMemo(c *gin.Context)
 	DeleteMemoById(c *gin.Context)
 	GetMemoById(c *gin.Context)
 	GetMemoList(c *gin.Context)
+	UpdateMemo(c *gin.Context)
 }
 
 func NewMemoHandler() MemoHandlerInterface {
@@ -24,6 +26,13 @@ func NewMemoHandler() MemoHandlerInterface {
 }
 
 type MemoHandler struct {
+}
+
+// Post /memo
+// Create a new memo 
+func (api *MemoHandler) CreateMemo(c *gin.Context) {
+	// Your handler implementation
+	c.JSON(200, gin.H{"status": "OK"})
 }
 
 // Delete /memo/:id
@@ -43,6 +52,13 @@ func (api *MemoHandler) GetMemoById(c *gin.Context) {
 // Get /memo-list
 // Returns a list of memos. 
 func (api *MemoHandler) GetMemoList(c *gin.Context) {
+	// Your handler implementation
+	c.JSON(200, gin.H{"status": "OK"})
+}
+
+// Put /memo/:id
+// Update an existing memo 
+func (api *MemoHandler) UpdateMemo(c *gin.Context) {
 	// Your handler implementation
 	c.JSON(200, gin.H{"status": "OK"})
 }
