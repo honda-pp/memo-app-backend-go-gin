@@ -56,11 +56,24 @@ func DefaultHandleFunc(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "501 not implemented")
 }
 
+type MemoHandlerInterface interface {
+	CreateMemo(c *gin.Context)
+	DeleteMemoById(c *gin.Context)
+	GetMemoById(c *gin.Context)
+	GetMemoList(c *gin.Context)
+	UpdateMemo(c *gin.Context)
+}
+type UsersHandlerInterface interface {
+	DeleteUserById(c *gin.Context)
+	GetUserById(c *gin.Context)
+	GetUserList(c *gin.Context)
+}
+
+
 func NewApiHandleFunctions(MemoHandlerInterface MemoHandlerInterface, UsersHandlerInterface UsersHandlerInterface, ) ApiHandleFunctions {
 	return ApiHandleFunctions{
 		MemoHandler: MemoHandlerInterface,
 		UsersHandler: UsersHandlerInterface,
-		
 	}
 }
 

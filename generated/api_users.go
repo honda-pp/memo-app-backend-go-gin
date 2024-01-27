@@ -13,12 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UsersHandlerInterface interface {
-	DeleteUserById(c *gin.Context)
-	GetUserById(c *gin.Context)
-	GetUserList(c *gin.Context)
-}
-
 func NewUsersHandler() UsersHandlerInterface {
 	return &UsersHandler{}
 }

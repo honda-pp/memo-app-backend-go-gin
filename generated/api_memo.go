@@ -13,14 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type MemoHandlerInterface interface {
-	CreateMemo(c *gin.Context)
-	DeleteMemoById(c *gin.Context)
-	GetMemoById(c *gin.Context)
-	GetMemoList(c *gin.Context)
-	UpdateMemo(c *gin.Context)
-}
-
 func NewMemoHandler() MemoHandlerInterface {
 	return &MemoHandler{}
 }
