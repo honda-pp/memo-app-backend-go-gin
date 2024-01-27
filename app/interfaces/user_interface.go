@@ -8,7 +8,7 @@ import (
 type UsersHandlerInterface interface {
 	DeleteUserById(c *gin.Context)
 	GetUserById(c *gin.Context)
-	GetUsers(c *gin.Context)
+	GetUserList(c *gin.Context)
 }
 
 type UserUsecaseInterface interface {

@@ -47,7 +47,7 @@ func (h *UsersHandler) GetUserById(c *gin.Context) {
 
 // Get /users
 // Returns a list of users.
-func (h *UsersHandler) GetUsers(c *gin.Context) {
+func (h *UsersHandler) GetUserList(c *gin.Context) {
 	users, err := h.UserUsecase.FindAll()
 
 	if err != nil {
