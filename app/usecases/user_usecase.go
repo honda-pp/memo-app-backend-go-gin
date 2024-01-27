@@ -1,18 +1,23 @@
 package usecases
 
 import (
-	"github.com/honda-pp/memo-app-backend-go-gin/app/interfaces"
 	"github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
-func NewUserUsecase(userRepository interfaces.UserRepositoryInterface) *UserUsecase {
+type UserRepositoryInterface interface {
+	DeleteById(id int) error
+	FindAll() ([]generated.User, error)
+	FindById(id int) (generated.User, error)
+}
+
+func NewUserUsecase(userRepository UserRepositoryInterface) *UserUsecase {
 	return &UserUsecase{
 		UserRepository: userRepository,
 	}
 }
 
 type UserUsecase struct {
-	UserRepository interfaces.UserRepositoryInterface
+	UserRepository UserRepositoryInterface
 }
 
 // DeleteById delete user by ID
