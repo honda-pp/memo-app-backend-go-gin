@@ -117,10 +117,10 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 			handleFunctions.UsersHandler.GetUserById,
 		},
 		{
-			"GetUsers",
+			"GetUserList",
 			http.MethodGet,
 			"/user-list",
-			handleFunctions.UsersHandler.GetUsers,
+			handleFunctions.UsersHandler.GetUserList,
 		},
 	}
 }
