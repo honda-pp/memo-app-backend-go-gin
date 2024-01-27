@@ -1,12 +1,12 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/honda-pp/memo-app-backend-go-gin/app/interfaces"
-	"github.com/honda-pp/memo-app-backend-go-gin/infrastructure/logger"
 )
 
 func NewUsersHandler(userUsecase interfaces.UserUsecaseInterface) interfaces.UsersHandlerInterface {
@@ -16,7 +16,6 @@ func NewUsersHandler(userUsecase interfaces.UserUsecaseInterface) interfaces.Use
 }
 
 type UsersHandler struct {
-	//log         *log.Logger
 	UserUsecase interfaces.UserUsecaseInterface
 }
 
@@ -52,7 +51,7 @@ func (h *UsersHandler) GetUsers(c *gin.Context) {
 	users, err := h.UserUsecase.FindAll()
 
 	if err != nil {
-		logger.LogError("Failed to get user list: " + err.Error())
+		log.Fatal("Failed to get user list: " + err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user list"})
 		return
 	}
