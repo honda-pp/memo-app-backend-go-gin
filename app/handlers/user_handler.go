@@ -6,17 +6,23 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/honda-pp/memo-app-backend-go-gin/app/interfaces"
+	"github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
-func NewUsersHandler(userUsecase interfaces.UserUsecaseInterface) interfaces.UsersHandlerInterface {
+type UserUsecaseInterface interface {
+	DeleteById(id int) error
+	FindAll() ([]generated.User, error)
+	FindById(id int) (generated.User, error)
+}
+
+func NewUsersHandler(userUsecase UserUsecaseInterface) *UsersHandler {
 	return &UsersHandler{
 		UserUsecase: userUsecase,
 	}
 }
 
 type UsersHandler struct {
-	UserUsecase interfaces.UserUsecaseInterface
+	UserUsecase UserUsecaseInterface
 }
 
 // Delete /user/:id
