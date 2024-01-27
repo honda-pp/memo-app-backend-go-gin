@@ -19,12 +19,10 @@ func main() {
 	defer db.Close()
 
 	userRepository := repositories.NewUserRepository(db)
-
 	userUsecase := usecases.NewUserUsecase(userRepository)
+	userApi := handlers.NewUsersHandler(userUsecase)
 
 	memoApi := handlers.NewMemoHandler()
-
-	userApi := handlers.NewUsersHandler(userUsecase)
 
 	routes := generated.NewApiHandleFunctions(memoApi, userApi)
 
