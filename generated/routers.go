@@ -64,6 +64,7 @@ type MemoHandlerInterface interface {
 	UpdateMemo(c *gin.Context)
 }
 type UsersHandlerInterface interface {
+	CreateUser(c *gin.Context)
 	DeleteUserById(c *gin.Context)
 	GetUserById(c *gin.Context)
 	GetUserList(c *gin.Context)
@@ -116,6 +117,12 @@ func getRoutes(handleFunctions ApiHandleFunctions) []Route {
 			http.MethodPut,
 			"/memo/:id",
 			handleFunctions.MemoHandler.UpdateMemo,
+		},
+		{
+			"CreateUser",
+			http.MethodPost,
+			"/user",
+			handleFunctions.UsersHandler.CreateUser,
 		},
 		{
 			"DeleteUserById",
