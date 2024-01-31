@@ -20,6 +20,13 @@ func NewUsersHandler() UsersHandlerInterface {
 type UsersHandler struct {
 }
 
+// Post /user
+// Create a new user 
+func (api *UsersHandler) CreateUser(c *gin.Context) {
+	// Your handler implementation
+	c.JSON(200, gin.H{"status": "OK"})
+}
+
 // Delete /user/:id
 // Delete user by ID 
 func (api *UsersHandler) DeleteUserById(c *gin.Context) {
