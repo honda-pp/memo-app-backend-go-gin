@@ -10,48 +10,96 @@
 package handlers
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
+	"github.com/honda-pp/memo-app-backend-go-gin/app/interfaces"
 	"github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
-func NewMemoHandler() generated.MemoHandlerInterface {
-	return &MemoHandler{}
+func NewMemoHandler(memoUsecase interfaces.MemoUsecaseInterface) generated.MemoHandlerInterface {
+	return &MemoHandler{
+		MemoUsecase: memoUsecase,
+	}
 }
 
 type MemoHandler struct {
+	MemoUsecase interfaces.MemoUsecaseInterface
 }
 
 // Post /memo
 // Create a new memo
 func (api *MemoHandler) CreateMemo(c *gin.Context) {
-	// Your handler implementation
+	var memo generated.Memo
+	if err := c.ShouldBindJSON(&memo); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	err := api.MemoUsecase.CreateMemo(memo)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to create memo"})
+		return
+	}
 	c.JSON(200, gin.H{"status": "OK"})
 }
 
 // Delete /memo/:id
 // Delete memo by ID
 func (api *MemoHandler) DeleteMemoById(c *gin.Context) {
-	// Your handler implementation
+	memoIDStr := c.Param("id")
+	memoID, err := strconv.Atoi(memoIDStr)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid memo ID"})
+		return
+	}
+	err = api.MemoUsecase.DeleteById(memoID)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to delete memo"})
+		return
+	}
 	c.JSON(200, gin.H{"status": "OK"})
 }
 
 // Get /memo/:id
 // Find memo by ID
 func (api *MemoHandler) GetMemoById(c *gin.Context) {
-	// Your handler implementation
-	c.JSON(200, gin.H{"status": "OK"})
+	memoIDStr := c.Param("id")
+	memoID, err := strconv.Atoi(memoIDStr)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid memo ID"})
+		return
+	}
+	memo, err := api.MemoUsecase.FindById(memoID)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to find memo"})
+		return
+	}
+	c.JSON(200, gin.H{"memo": memo})
 }
 
 // Get /memo-list
 // Returns a list of memos.
 func (api *MemoHandler) GetMemoList(c *gin.Context) {
-	// Your handler implementation
-	c.JSON(200, gin.H{"status": "OK"})
+	memos, err := api.MemoUsecase.FindAll()
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to get memo list"})
+		return
+	}
+	c.JSON(200, gin.H{"memos": memos})
 }
 
 // Put /memo/:id
 // Update an existing memo
 func (api *MemoHandler) UpdateMemo(c *gin.Context) {
-	// Your handler implementation
+	var memo generated.Memo
+	if err := c.ShouldBindJSON(&memo); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	err := api.MemoUsecase.UpdateMemo(memo)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to update memo"})
+		return
+	}
 	c.JSON(200, gin.H{"status": "OK"})
 }

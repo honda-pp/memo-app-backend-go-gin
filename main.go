@@ -22,7 +22,9 @@ func main() {
 	userUsecase := usecases.NewUserUsecase(userRepository)
 	userApi := handlers.NewUsersHandler(userUsecase)
 
-	memoApi := handlers.NewMemoHandler()
+	memoRepository := repositories.NewMemoRepository(db)
+	memoUsecase := usecases.NewMemoUsecase(memoRepository)
+	memoApi := handlers.NewMemoHandler(memoUsecase)
 
 	routes := generated.NewApiHandleFunctions(memoApi, userApi)
 
