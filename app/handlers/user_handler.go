@@ -66,7 +66,7 @@ func (h *UsersHandler) GetUserById(c *gin.Context) {
 	c.JSON(200, gin.H{"user": user})
 }
 
-// Get /users
+// Get /user-list
 // Returns a list of users.
 func (h *UsersHandler) GetUserList(c *gin.Context) {
 	users, err := h.UserUsecase.FindAll()

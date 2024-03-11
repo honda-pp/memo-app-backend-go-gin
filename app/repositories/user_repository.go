@@ -18,20 +18,44 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 
 // CreateUser create a new user
 func (r *UserRepository) CreateUser(user generated.User) error {
-	// Your code here
+	query := "INSERT INTO users (name) VALUES ($1)"
+	_, err := r.db.Exec(query, user.Name)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 // DeleteById delete user by ID
 func (r *UserRepository) DeleteById(id int) error {
-	// Your code here
+	query := "DELETE FROM users WHERE id = $1"
+	_, err := r.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 // FindAll returns a list of users.
 func (r *UserRepository) FindAll() ([]generated.User, error) {
-	// Your code here
-	return nil, nil
+	query := "SELECT id, name FROM users"
+
+	users := []generated.User{}
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		user := generated.User{}
+		err = rows.Scan(&user.Id, &user.Name)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+	return users, nil
 }
 
 // FindById find user by ID
