@@ -1,6 +1,9 @@
 package main
 
 import (
+	"time"
+
+	"github.com/gin-contrib/cors"
 	"github.com/honda-pp/memo-app-backend-go-gin/app/handlers"
 	"github.com/honda-pp/memo-app-backend-go-gin/app/repositories"
 	"github.com/honda-pp/memo-app-backend-go-gin/app/usecases"
@@ -30,7 +33,11 @@ func main() {
 
 	log.Printf("Server started")
 
-	router := generated.NewRouter(routes)
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:88"}
+	config.AllowCredentials = true
+	config.MaxAge = 12 * time.Hour
+	router := generated.NewRouter(routes, config)
 
 	log.Fatal(router.Run(":8000"))
 }
