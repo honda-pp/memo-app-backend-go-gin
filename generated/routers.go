@@ -12,6 +12,7 @@ package generated
 import (
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,8 +29,10 @@ type Route struct {
 }
 
 // NewRouter returns a new router.
-func NewRouter(handleFunctions ApiHandleFunctions) *gin.Engine {
+func NewRouter(handleFunctions ApiHandleFunctions, config cors.Config) *gin.Engine {
 	router := gin.Default()
+	router.Use(cors.New(config))
+	
 	for _, route := range getRoutes(handleFunctions) {
 		if route.HandlerFunc == nil {
 			route.HandlerFunc = DefaultHandleFunc
