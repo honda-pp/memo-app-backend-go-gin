@@ -80,12 +80,12 @@ func (api *MemoHandler) GetMemoById(c *gin.Context) {
 // Get /memo-list
 // Returns a list of memos.
 func (api *MemoHandler) GetMemoList(c *gin.Context) {
-	memos, err := api.MemoUsecase.FindAll()
+	memoList, err := api.MemoUsecase.FindAll()
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to get memo list"})
 		return
 	}
-	c.JSON(200, gin.H{"memos": memos})
+	c.JSON(200, gin.H{"memoList": memoList})
 }
 
 // Put /memo/:id
