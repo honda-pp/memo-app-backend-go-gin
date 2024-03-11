@@ -6,23 +6,34 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/honda-pp/memo-app-backend-go-gin/app/interfaces"
 	"github.com/honda-pp/memo-app-backend-go-gin/generated"
 )
 
-type UserUsecaseInterface interface {
-	DeleteById(id int) error
-	FindAll() ([]generated.User, error)
-	FindById(id int) (generated.User, error)
-}
-
-func NewUsersHandler(userUsecase UserUsecaseInterface) *UsersHandler {
+func NewUsersHandler(userUsecase interfaces.UserUsecaseInterface) *UsersHandler {
 	return &UsersHandler{
 		UserUsecase: userUsecase,
 	}
 }
 
 type UsersHandler struct {
-	UserUsecase UserUsecaseInterface
+	UserUsecase interfaces.UserUsecaseInterface
+}
+
+// Create /user
+// Create a new user
+func (h *UsersHandler) CreateUser(c *gin.Context) {
+	var user generated.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	err := h.UserUsecase.CreateUser(user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		return
+	}
+	c.JSON(200, gin.H{"status": "OK"})
 }
 
 // Delete /user/:id
@@ -47,11 +58,15 @@ func (h *UsersHandler) GetUserById(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 		return
 	}
-	h.UserUsecase.FindById(userID)
-	c.JSON(200, gin.H{"status": "OK"})
+	user, err := h.UserUsecase.FindById(userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user"})
+		return
+	}
+	c.JSON(200, gin.H{"user": user})
 }
 
-// Get /users
+// Get /user-list
 // Returns a list of users.
 func (h *UsersHandler) GetUserList(c *gin.Context) {
 	users, err := h.UserUsecase.FindAll()
