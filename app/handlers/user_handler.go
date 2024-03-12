@@ -67,7 +67,7 @@ func (h *UsersHandler) GetUserById(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user"})
 		return
 	}
-	c.JSON(200, gin.H{"user": user})
+	c.JSON(200, user)
 }
 
 // Get /user-list
@@ -80,5 +80,5 @@ func (h *UsersHandler) GetUserList(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user list"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"userList": users})
+	c.JSON(http.StatusOK, users)
 }
