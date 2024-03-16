@@ -5,7 +5,7 @@ import "github.com/honda-pp/memo-app-backend-go-gin/generated"
 type MemoUsecaseInterface interface {
 	CreateMemo(generated.Memo) error
 	DeleteById(id int) error
-	FindAll() ([]generated.Memo, error)
+	FindAll() ([]generated.MemoListInner, error)
 	FindById(id int) (*generated.Memo, error)
 	UpdateMemo(generated.Memo) error
 }
@@ -13,7 +13,7 @@ type MemoUsecaseInterface interface {
 type MemoRepositoryInterface interface {
 	CreateMemo(generated.Memo) error
 	DeleteById(id int) error
-	FindAll() ([]generated.Memo, error)
+	FindAll() ([]generated.MemoListInner, error)
 	FindById(id int) (*generated.Memo, error)
 	UpdateMemo(generated.Memo) error
 }

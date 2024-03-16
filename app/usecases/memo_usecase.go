@@ -26,7 +26,7 @@ func (u *MemoUsecase) DeleteById(id int) error {
 }
 
 // FindAll returns a list of memos.
-func (u *MemoUsecase) FindAll() ([]generated.Memo, error) {
+func (u *MemoUsecase) FindAll() ([]generated.MemoListInner, error) {
 	return u.MemoRepository.FindAll()
 }
 

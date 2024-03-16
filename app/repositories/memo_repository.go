@@ -37,10 +37,10 @@ func (r *MemoRepository) DeleteById(id int) error {
 }
 
 // FindAll returns a list of memos.
-func (r *MemoRepository) FindAll() ([]generated.Memo, error) {
-	query := "SELECT id, title, content FROM memo"
+func (r *MemoRepository) FindAll() ([]generated.MemoListInner, error) {
+	query := "SELECT id, title FROM memo"
 
-	memos := []generated.Memo{}
+	memos := []generated.MemoListInner{}
 
 	rows, err := r.DB.Query(query)
 	if err != nil {
@@ -48,8 +48,8 @@ func (r *MemoRepository) FindAll() ([]generated.Memo, error) {
 	}
 
 	for rows.Next() {
-		memo := generated.Memo{}
-		err = rows.Scan(&memo.Id, &memo.Title, &memo.Content)
+		memo := generated.MemoListInner{}
+		err = rows.Scan(&memo.Id, &memo.Title)
 		if err != nil {
 			return nil, err
 		}
