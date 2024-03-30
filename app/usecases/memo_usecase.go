@@ -16,7 +16,7 @@ type MemoUsecase struct {
 }
 
 // CreateMemo create a new memo
-func (u *MemoUsecase) CreateMemo(memo generated.Memo) error {
+func (u *MemoUsecase) CreateMemo(memo generated.Memo) (*int64, error) {
 	return u.MemoRepository.CreateMemo(memo)
 }
 

@@ -17,13 +17,19 @@ func NewMemoRepository(db *sql.DB) *MemoRepository {
 }
 
 // CreateMemo create a new memo
-func (r *MemoRepository) CreateMemo(memo generated.Memo) error {
+func (r *MemoRepository) CreateMemo(memo generated.Memo) (*int64, error) {
 	query := "INSERT INTO memo (title, content, user_id) VALUES ($1, $2, $3)"
-	_, err := r.DB.Exec(query, memo.Title, memo.Content, memo.UserId)
+	c, err := r.DB.Exec(query, memo.Title, memo.Content, memo.UserId)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+
+	id, err := c.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
+
+	return &id, nil
 }
 
 // DeleteById delete memo by ID

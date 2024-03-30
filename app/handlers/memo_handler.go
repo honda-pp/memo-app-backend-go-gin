@@ -35,12 +35,13 @@ func (api *MemoHandler) CreateMemo(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	err := api.MemoUsecase.CreateMemo(memo)
+	id, err := api.MemoUsecase.CreateMemo(memo)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create memo"})
 		return
 	}
-	c.JSON(200, gin.H{"status": "OK"})
+	memo.Id = int64(*id)
+	c.JSON(201, memo)
 }
 
 // Delete /memo/:id
@@ -101,5 +102,5 @@ func (api *MemoHandler) UpdateMemo(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "Failed to update memo"})
 		return
 	}
-	c.JSON(200, gin.H{"status": "OK"})
+	c.JSON(200, memo)
 }
