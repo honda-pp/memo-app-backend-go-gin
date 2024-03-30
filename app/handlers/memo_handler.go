@@ -37,7 +37,7 @@ func (api *MemoHandler) CreateMemo(c *gin.Context) {
 	}
 	id, err := api.MemoUsecase.CreateMemo(memo)
 	if err != nil {
-		c.JSON(500, gin.H{"error": "Failed to create memo"})
+		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 	memo.Id = int64(*id)

@@ -18,18 +18,13 @@ func NewMemoRepository(db *sql.DB) *MemoRepository {
 
 // CreateMemo create a new memo
 func (r *MemoRepository) CreateMemo(memo generated.Memo) (*int64, error) {
-	query := "INSERT INTO memo (title, content, user_id) VALUES ($1, $2, $3)"
-	c, err := r.DB.Exec(query, memo.Title, memo.Content, memo.UserId)
+	query := "INSERT INTO memo (title, content, user_id) VALUES ($1, $2, $3) RETURNING id"
+	err := r.DB.QueryRow(query, memo.Title, memo.Content, memo.UserId).Scan(&memo.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	id, err := c.LastInsertId()
-	if err != nil {
-		return nil, err
-	}
-
-	return &id, nil
+	return &memo.Id, nil
 }
 
 // DeleteById delete memo by ID
@@ -44,7 +39,7 @@ func (r *MemoRepository) DeleteById(id int) error {
 
 // FindAll returns a list of memos.
 func (r *MemoRepository) FindAll() ([]generated.MemoListInner, error) {
-	query := "SELECT id, title FROM memo"
+	query := "SELECT id, title FROM memo order by id desc"
 
 	memos := []generated.MemoListInner{}
 
