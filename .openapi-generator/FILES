@@ -1,6 +1,7 @@
 generated/api_memo.go
 generated/api_users.go
 generated/model_error.go
+generated/model_get_memo_list_request.go
 generated/model_memo.go
 generated/model_memo_list_inner.go
 generated/model_user.go
